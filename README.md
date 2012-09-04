@@ -1,35 +1,33 @@
-Ruby CoffeeScript
+Ruby LiveScript
 =================
 
-Ruby CoffeeScript is a bridge to the official CoffeeScript compiler.
+Ruby LiveScript is a bridge to the official LiveScript compiler.
 
-    CoffeeScript.compile File.read("script.coffee")
+    LiveScript.compile File.read("script.ls)
 
+This gem is a fork of `ruby-coffee-script` adapted for LiveScript.
 
 Installation
 ------------
 
-    gem install coffee-script
-
-*Note: This compiler library has replaced the original CoffeeScript
- compiler that was written in Ruby.*
+    gem install livescript
 
 
 Dependencies
 ------------
 
-This library depends on the `coffee-script-source` gem which is
-updated any time a new version of CoffeeScript is released. (The
-`coffee-script-source` gem's version number is synced with each
-official CoffeeScript release.) This way you can build against
-different versions of CoffeeScript by requiring the correct version of
-the `coffee-script-source` gem.
+This library depends on the `livescript-source` gem which is
+updated any time a new version of LiveScript is released. (The
+`livescript-source` gem's version number is synced with each
+official LiveScript release.) This way you can build against
+different versions of LiveScript by requiring the correct version of
+the `livescript-source` gem.
 
 In addition, you can use this library with unreleased versions of
-CoffeeScript by setting the `COFFEESCRIPT_SOURCE_PATH` environment
+LiveScript by setting the `LIVESCRIPT_SOURCE_PATH` environment
 variable:
 
-    export COFFEESCRIPT_SOURCE_PATH=/path/to/coffee-script/extras/coffee-script.js
+    export LIVESCRIPT_SOURCE_PATH=/path/to/LiveScript/extras/livescript.js
 
 ### JSON
 

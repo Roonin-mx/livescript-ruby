@@ -1,13 +1,13 @@
 require 'execjs'
-require 'coffee_script/source'
+require 'livescript/source'
 
-module CoffeeScript
+module LiveScript
   EngineError      = ExecJS::RuntimeError
   CompilationError = ExecJS::ProgramError
 
   module Source
     def self.path
-      @path ||= ENV['COFFEESCRIPT_SOURCE_PATH'] || bundled_path
+      @path ||= ENV['LIVESCRIPT_SOURCE_PATH'] || bundled_path
     end
 
     def self.path=(path)
@@ -20,7 +20,7 @@ module CoffeeScript
     end
 
     def self.version
-      @version ||= contents[/CoffeeScript Compiler v([\d.]+)/, 1]
+      @version ||= contents[/LiveScript Compiler v([\d.]+)/, 1]
     end
 
     def self.bare_option
@@ -54,7 +54,7 @@ module CoffeeScript
         options[:bare] = false
       end
 
-      Source.context.call("CoffeeScript.compile", script, options)
+      Source.context.call("LiveScript.compile", script, options)
     end
   end
 end
