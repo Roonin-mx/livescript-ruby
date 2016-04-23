@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
     'README.md',
   ]
 
-  s.add_runtime_dependency 'livescript-source', '>= 1.4.0.rc.1', '<= 1.5.0'
+  s.add_runtime_dependency 'livescript-source', '>= 1.4.0.rc.1', '< 1.5.0'
   s.add_runtime_dependency 'execjs', '~> 2.0'
 
   s.add_development_dependency 'bundler', '~> 1.11'
