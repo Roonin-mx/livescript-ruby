@@ -1,60 +1,49 @@
 require 'execjs'
 require 'livescript/source'
+require_relative 'livescript/version'
 
 module LiveScript
-  EngineError      = ExecJS::RuntimeError
-  CompilationError = ExecJS::ProgramError
+  # compile options. See Programmatic API section at http://livescript.net/
+  @default_options = {}
+  @context = ExecJS.compile LiveScript::Source.contents
 
-  module Source
-    def self.path
-      @path ||= ENV['LIVESCRIPT_SOURCE_PATH'] || bundled_path
-    end
+  def self.context
+    @context
+  end
 
-    def self.path=(path)
-      @contents = @version = @bare_option = @context = nil
-      @path = path
-    end
+  def self.context=(context)
+    @context = context
+  end
 
-    def self.contents
-      @contents ||= File.read(path)
-    end
+  def self.default_options
+    @default_options
+  end
 
-    def self.version
-      @version ||= contents[/LiveScript Compiler v([\d.]+)/, 1]
-    end
-
-    def self.bare_option
-      @bare_option ||= contents.match(/noWrap/) ? 'noWrap' : 'bare'
-    end
-
-    def self.context
-      @context ||= ExecJS.compile(contents)
+  def self.default_options=(options)
+    if options.nil? || !options.kind_of?(Hash)
+      raise "Wrong parameter for default_options: #{options.inspect}"
+    else
+      @default_options = options
     end
   end
 
-  class << self
-    def engine
-    end
+  # Compile a script (String or IO) to JavaScript.
+  def self.compile(script, options = {})
+    # Read content if script is IO object
+    script = script.read if script.respond_to?(:read)
 
-    def engine=(engine)
-    end
+    options = @default_options.merge(options)
 
-    def version
-      Source.version
-    end
+    @context.call('LiveScript.compile', script, options)
+  end
 
-    # Compile a script (String or IO) to JavaScript.
-    def compile(script, options = {})
-      script = script.read if script.respond_to?(:read)
+  def self.engine
+  end
 
-      if options.key?(:bare)
-      elsif options.key?(:no_wrap)
-        options[:bare] = options[:no_wrap]
-      else
-        options[:bare] = false
-      end
+  def self.version
+    LiveScript::VERSION
+  end
 
-      Source.context.call("LiveScript.compile", script, options)
-    end
+  def self.engine=(engine)
   end
 end
